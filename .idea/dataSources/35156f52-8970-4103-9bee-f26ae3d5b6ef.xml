@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="homework@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="homework">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="bike"/>
+    <schema id="4" parent="1" name="blog"/>
+    <schema id="5" parent="1" name="bookstore"/>
+    <schema id="6" parent="1" name="canteen"/>
+    <schema id="7" parent="1" name="class_manager"/>
+    <schema id="8" parent="1" name="ElectronicCommerce"/>
+    <schema id="9" parent="1" name="information_schema"/>
+    <schema id="10" parent="1" name="library"/>
+    <schema id="11" parent="1" name="management"/>
+    <schema id="12" parent="1" name="mysql"/>
+    <schema id="13" parent="1" name="mytest"/>
+    <schema id="14" parent="1" name="oracle"/>
+    <schema id="15" parent="1" name="performance_schema"/>
+    <schema id="16" parent="1" name="predict"/>
+    <schema id="17" parent="1" name="software_manager"/>
+    <schema id="18" parent="1" name="study_recommend"/>
+    <schema id="19" parent="1" name="sys"/>
+    <schema id="20" parent="1" name="test"/>
+    <schema id="21" parent="1" name="transaction"/>
+    <table id="22" parent="2" name="appeal"/>
+    <table id="23" parent="2" name="class"/>
+    <table id="24" parent="2" name="correct"/>
+    <table id="25" parent="2" name="course"/>
+    <table id="26" parent="2" name="homework"/>
+    <table id="27" parent="2" name="inner_class_user"/>
+    <table id="28" parent="2" name="inner_course_student"/>
+    <table id="29" parent="2" name="inner_course_teacher"/>
+    <table id="30" parent="2" name="manager"/>
+    <table id="31" parent="2" name="student_homework"/>
+    <table id="32" parent="2" name="teacher_correct"/>
+    <table id="33" parent="2" name="user"/>
+    <column id="34" parent="22" name="appeal_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="35" parent="22" name="student_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="36" parent="22" name="student_homework_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="37" parent="22" name="status">
+      <Position>4</Position>
+      <DataType>int(2)|0</DataType>
+    </column>
+    <column id="38" parent="22" name="reason">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="39" parent="22" name="PRIMARY">
+      <ColNames>appeal_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="40" parent="23" name="class_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="41" parent="23" name="class_name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="42" parent="23" name="PRIMARY">
+      <ColNames>class_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="43" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="44" parent="24" name="student_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="45" parent="24" name="grade">
+      <Position>4</Position>
+      <DataType>decimal(11,2)|0</DataType>
+    </column>
+    <column id="46" parent="24" name="student_homework_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="47" parent="24" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="48" parent="25" name="course_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="49" parent="25" name="course_name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="50" parent="25" name="PRIMARY">
+      <ColNames>course_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="51" parent="26" name="homework_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="52" parent="26" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="53" parent="26" name="course_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="54" parent="26" name="percent">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="55" parent="26" name="deadline">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="56" parent="26" name="PRIMARY">
+      <ColNames>homework_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="57" parent="27" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="58" parent="27" name="student_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="59" parent="27" name="class_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="60" parent="27" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="61" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="62" parent="28" name="course_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="63" parent="28" name="student_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="64" parent="28" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="65" parent="29" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="66" parent="29" name="teacher_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="67" parent="29" name="course_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="68" parent="29" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="69" parent="30" name="manager_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="70" parent="30" name="username">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="71" parent="30" name="password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="72" parent="30" name="PRIMARY">
+      <ColNames>manager_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="73" parent="31" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="74" parent="31" name="student_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="75" parent="31" name="homework_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="76" parent="31" name="grade">
+      <Position>4</Position>
+      <DataType>decimal(11,2)|0</DataType>
+    </column>
+    <column id="77" parent="31" name="file_url">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="78" parent="31" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="79" parent="32" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="80" parent="32" name="teacher_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="81" parent="32" name="grade">
+      <Position>4</Position>
+      <DataType>decimal(11)|0</DataType>
+    </column>
+    <column id="82" parent="32" name="student_homework_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="83" parent="32" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="84" parent="33" name="user_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="85" parent="33" name="username">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="86" parent="33" name="password">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="87" parent="33" name="name">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="88" parent="33" name="is_teacher">
+      <Position>5</Position>
+      <DataType>int(1)|0</DataType>
+    </column>
+    <key id="89" parent="33" name="PRIMARY">
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
