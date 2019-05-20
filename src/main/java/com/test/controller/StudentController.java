@@ -55,6 +55,9 @@ public class StudentController {
     @Autowired
     @Qualifier("appealDao")
     private AppealDao appealDao;
+    @Autowired
+    @Qualifier("innerCourseTeacherDao")
+    private InnerCourseTeacherDao innerCourseTeacherDao;
 
 
     @RequestMapping(value="/getCourse",method = RequestMethod.POST)
@@ -231,6 +234,19 @@ public class StudentController {
                         }
                     }
                 }
+                int shId = 0;
+                for(int i=0;i<list.size();i++){
+                    if(list.get(i).getStudentId()==Integer.valueOf(userId)){
+                        shId = list.get(i).getId();
+                    }
+                }
+                HomeworkEntity home = homeworkDao.getById(sh.getHomeworkId());
+                CourseEntity course = courseDao.getById(home.getCourseId());
+                InnerCourseTeacherEntity ict = innerCourseTeacherDao.getByCourseId(course.getCourseId());
+                TeacherCorrectEntity tc = new TeacherCorrectEntity();
+                tc.setStudentHomeworkId(shId);
+                tc.setTeacherId(ict.getTeacherId());
+                teacherCorrectDao.save(tc);
                 for(int i=0;i<user.size();i++){
                     CorrectEntity correctEntity = new CorrectEntity();
                     correctEntity.setStudentId(user.get(i));
@@ -238,6 +254,7 @@ public class StudentController {
                     correctDao.save(correctEntity);
                     correctDao.getSession().clear();
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

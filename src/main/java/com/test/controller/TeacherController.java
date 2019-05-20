@@ -184,6 +184,17 @@ public class TeacherController {
         appealDao.save(appeal);
     }
 
+    @RequestMapping(value="/deleteHomework",method = RequestMethod.POST)
+    public void deleteHomework(HttpServletRequest request, HttpServletResponse response,HttpSession session){
+        String homeworkId = request.getParameter("homeworkId");
+        studentHomeworkDao.deleteByHomeworkId(homeworkId);
+        HomeworkEntity home = homeworkDao.getById(Integer.valueOf(homeworkId));
+        homeworkDao.delete(home);
+
+    }
+
+
+
 
     @RequestMapping(value="/addGrade",method = RequestMethod.POST)
     public void addGrade(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
@@ -208,6 +219,22 @@ public class TeacherController {
 
     }
 
+
+    @RequestMapping(value="/getCourseStudent",method = RequestMethod.POST)
+    public void getCourseStudent(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+        String courseId = request.getParameter("courseId");
+        List<InnerCourseStudentEntity> list = innerCourseStudentDao.getByCourseId(courseId);
+        List<UserEntity> list2 = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            list2.add(userDao.getById(list.get(i).getStudentId()));
+        }
+        JSONObject json = new JSONObject();
+        json.put("list",list2);
+        response.setContentType("application/json;charset=utf-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        String js = json.toString();
+        response.getWriter().write(js.toString());
+    }
 
 
 
@@ -246,6 +273,19 @@ public class TeacherController {
                 return "redirect:/login";
             }
             return "detail";
+        }catch(Exception e){
+            return "redirect:/login";
+        }
+    }
+
+    @RequestMapping(value="/courseDetail",method = RequestMethod.GET)
+    public String courseDetail(HttpSession session){
+        try{
+            Object teacher = session.getAttribute("userId");
+            if(teacher == null){
+                return "redirect:/login";
+            }
+            return "teacherCourseDetail";
         }catch(Exception e){
             return "redirect:/login";
         }

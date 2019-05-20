@@ -143,6 +143,30 @@
         window.location.href="/teacher/detail?homeworkId="+data.homeworkId;
     });
 
+    $(".panel-body").on('click', 'button#delete', function () {
+
+        var data = $("#dataTables-example").DataTable().row($(this).parents("tr")).data();
+//        console.log(data.homeworkId);
+        var r=confirm("确认移除作业"+data.name+"？");
+        if (r==true)
+        {
+            $.ajax({
+                url:"/teacher/deleteHomework",
+                type:"post",
+                data:{
+                    'homeworkId':data.homeworkId,
+                },
+                async:false,
+                success:function(res){
+                    location.reload();
+                }
+            })
+        }
+        else
+        {
+
+        }
+    });
 
 
     function getHomework(){
@@ -160,6 +184,8 @@
                 var msg = jsonDate.homeworkList;
                 $('#dataTables-example').dataTable().fnDestroy();//sample_1是table的id
                 $('#dataTables-example').dataTable( {
+                    "bAutoWidth" : false,
+                    "bScrollInfinite" : false,
                     searching : false,
                     "oLanguage" : { // 国际化配置
                         "sProcessing" : "正在获取数据，请稍后...",
@@ -202,7 +228,8 @@
                             "targets": -1,//删除
                             "data": null,
                             "render": function(data, type, row, meta) {
-                                var button ="<button style='margin-right: 10px;'  id='detail' class='btn btn-primary' type='button'>查看详情</button>";
+                                var button ="<nobr><button style='margin-right: 10px;'  id='detail' class='btn btn-primary' type='button'>查看详情</button>" +
+                                    "<button style='margin-right: 10px;'  id='delete' class='btn btn-primary' type='button'>删除</button></nobr>";
                                 return button;
                             },
 

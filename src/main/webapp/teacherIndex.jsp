@@ -179,6 +179,12 @@
         getAccount();
     });
 
+    $(".panel-body").on('click', 'button#detail', function () {
+
+        var data = $("#dataTables-example").DataTable().row($(this).parents("tr")).data();
+//        console.log(data.homeworkId);
+        window.location.href="/teacher/courseDetail?courseId="+data.courseId;
+    });
 
     $(".panel-body").on('click', 'button#appeal', function () {
 
@@ -271,7 +277,8 @@
                             "targets": -1,//删除
                             "data": null,
                             "render": function(data, type, row, meta) {
-                                var button ="<button style='margin-right: 10px;'  id='appeal' class='btn btn-primary' type='button'>发布作业</button>";
+                                var button ="<nobr><button style='margin-right: 10px;'  id='appeal' class='btn btn-primary' type='button'>发布作业</button>" +
+                                    "<button style='margin-right: 10px;'  id='detail' class='btn btn-primary' type='button'>查看选课</button></nobr>";
                                 return button;
                             },
 

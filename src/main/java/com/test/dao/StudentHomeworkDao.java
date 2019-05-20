@@ -47,4 +47,10 @@ public class StudentHomeworkDao extends BaseDao {
         }
         return list2;
     }
+
+    public void deleteByHomeworkId(String homeworkId){
+        String hql = "Delete FROM StudentHomeworkEntity Where homeworkId="+homeworkId ;
+        Query q = getSession().createQuery(hql) ;
+        q.executeUpdate() ;
+    }
 }

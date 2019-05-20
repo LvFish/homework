@@ -284,9 +284,9 @@
                             "targets": -1,//删除
                             "data": null,
                             "render": function(data, type, row, meta) {
-                                var button ="<button style='margin-right: 10px;' id='download' class='btn btn-primary' type='button'>查看</button>" +
+                                var button ="<nobr><button style='margin-right: 10px;' id='download' class='btn btn-primary' type='button'>查看</button>" +
                                     "<button style='margin-right: 10px;' id='upload' class='btn btn-primary' type='button'>打分</button>" +
-                                    "<button style='margin-right: 10px;' id='pass' class='btn btn-primary' type='button'>跳过</button>";
+                                    "<button style='margin-right: 10px;' id='pass' class='btn btn-primary' type='button'>跳过</button></nobr>";
                                 return button;
                             },
 

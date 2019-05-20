@@ -266,6 +266,8 @@
                 $('#dataTables-example').dataTable().fnDestroy();//sample_1是table的id
                 $('#dataTables-example').dataTable( {
                     searching : false,
+                    "bAutoWidth" : true,
+                    "bScrollInfinite" : true,
                     "oLanguage" : { // 国际化配置
                         "sProcessing" : "正在获取数据，请稍后...",
                         "sLengthMenu" : "显示 _MENU_ 条",
@@ -311,19 +313,20 @@
                             "targets": -1,//删除
                             "data": null,
                             "render": function(data, type, row, meta) {
-                                var button = "";
+                                var button = "<nobr>";
+
                                 var oDate = new Date(row.deadline.time);
                                 var nowDate = new Date();
                                 if(oDate<new Date()||row.grade != null){
                                     if(row.fileUrl == null)
-                                        button = "<button style='margin-right: 10px;' disabled='disabled' id='upload' class='btn btn-primary' type='button'>上传</button>";
+                                        button += "<button style='margin-right: 10px;' disabled='disabled' id='upload' class='btn btn-primary' type='button'>上传</button>";
                                     else
                                         button = "<button style='margin-right: 10px;' disabled='disabled' id='upload' class='btn btn-primary' type='button'>上传</button>";
                                 }else{
                                     if(row.fileUrl == null)
-                                        button = "<button style='margin-right: 10px;' id='upload' class='btn btn-primary' type='button'>上传</button>";
+                                        button += "<button style='margin-right: 10px;' id='upload' class='btn btn-primary' type='button'>上传</button>";
                                     else
-                                        button = "<button style='margin-right: 10px;' disabled='disabled' id='upload' class='btn btn-primary' type='button'>上传</button>";
+                                        button += "<button style='margin-right: 10px;' disabled='disabled' id='upload' class='btn btn-primary' type='button'>上传</button>";
                                 }
 
                                 if(row.grade != null) {
@@ -340,6 +343,7 @@
                                 }
                                 else
                                     button +="<button style='margin-right: 10px;' disabled='disabled' id='appeal' class='btn btn-primary' type='button'>申诉</button>";
+                                button += "</nobr>";
                                 return button;
                             },
 

@@ -58,11 +58,11 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
 
-                <li><a href="/teacher/index"><i
+                <li><a class="active-menu" href="#"><i
                         class="fa fa-dashboard"></i> 首页</a></li>
                 <li><a href="/teacher/publish"><i class="fa fa-desktop"></i>
                     查看作业</a></li>
-                <li><a class="active-menu" href="#"><i class="fa fa-bar-chart-o"></i>
+                <li><a href="/teacher/correct"><i class="fa fa-bar-chart-o"></i>
                     批改作业</a></li>
                 <li><a href="/teacher/dealQuestion"><i class="fa fa-paperclip"></i>
                     处理申诉</a></li>
@@ -75,50 +75,14 @@
         </div>
 
     </nav>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        打分
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" role="form">
-                        <!--用户框-->
 
-                        <div class="form-group">
-                            <label for="upload-grade" class="col-sm-2 control-label">打分</label>
-                            <div class="col-sm-10">
-                                <input type="hidden" disabled="disabled" class="form-control" id="upload-id"  required="required">
-                                <input type="number"  class="form-control" id="upload-grade"  required="required">
-                            </div>
-                        </div>
-
-
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" onclick="addGrade()" class="btn btn-primary">
-                        确认
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
     <!-- /. NAV SIDE  -->
     <div id="page-wrapper">
         <div id="page-inner">
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="page-header">
-                        批改作业
+                        查看选课
                     </h1>
                 </div>
             </div>
@@ -128,7 +92,7 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            待批改作业
+                            选课详情
                         </div>
                         <div class="panel-body">
 
@@ -136,10 +100,8 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <tr>
-                                        <th>作业名</th>
-                                        <th>学生</th>
-                                        <th>所属课程</th>
-                                        <th>操作</th>
+                                        <th>学号</th>
+                                        <th>姓名</th>
                                     </tr>
                                     </thead>
 
@@ -165,86 +127,27 @@
 <script src="/assets/js/dataTables/jquery.dataTables.js"></script>
 <script src="/assets/js/dataTables/dataTables.bootstrap.js"></script>
 
+
 <script type="text/javascript">
     $(document).ready(function () {
-        getHomework();
+        var courseId = GetQueryString('courseId');
+        getCourseDetail(courseId);
     });
 
-    $(".panel-body").on('click', 'button#upload', function () {
 
-        var data = $("#dataTables-example").DataTable().row($(this).parents("tr")).data();
-        document.getElementById('upload-id').value = data.id;
-        document.getElementById('upload-grade').value = "";
-        /*  alert("Do you want delete " + data.username + "?"); */
-        $('#myModal').modal('show');
-    });
-
-    $(".panel-body").on('click', 'button#download', function () {
-
-        var data = $("#dataTables-example").DataTable().row($(this).parents("tr")).data();
-        var fileName = data.fileUrl;
-        var url = "/student/downloadFile";
-        var form = $("<form></form>").attr("action", url).attr("method", "post");
-        form.append($("<input></input>").attr("type", "hidden").attr("name", "fileName").attr("value", fileName));
-        form.appendTo('body').submit().remove();
-    });
-    $(".panel-body").on('click', 'button#pass', function () {
-
-        var data = $("#dataTables-example").DataTable().row($(this).parents("tr")).data();
-        var id = data.id;
+    function getCourseDetail(courseId){
         $.ajax({
-            url:"/teacher/deleteCorrect",
+            url:"/teacher/getCourseStudent",
             type:"post",
             data:{
-                "id":id,
+                "courseId":courseId,
             },
             async:false,
-            success:function() {
-                location.reload();
-            }
-        });
-    });
-
-
-
-    function addGrade(){
-        var id = document.getElementById('upload-id').value;
-        var grade = document.getElementById('upload-grade').value;
-//        console.log(grade);
-        if(grade.length<=0||grade<0||grade>100) {
-            alert("请输入合法数据");
-            return;
-        }
-        $.ajax({
-            url:"/teacher/addGrade",
-            type:"post",
-            data:{
-                "id":id,
-                "grade":grade,
-            },
-            async:false,
-            success:function() {
-                alert("评分成功");
-                $('#myModal').modal('hide');
-                location.reload();
-            }
-        });
-
-    }
-
-    function getHomework(){
-        $.ajax({  // ajax登陆请求
-            url:"/teacher/getCorrectHomework",
-            type:"post",
-            data:{
-
-            },
-            async:false,
-            success:function(res){
+            success:function(res) {
                 var jsonDate =res;
 
 //                        var jsonObj = eval( '(' + jsonDate + ')' );
-                var msg = jsonDate.correctList;
+                var msg = jsonDate.list;
                 $('#dataTables-example').dataTable().fnDestroy();//sample_1是table的id
                 $('#dataTables-example').dataTable( {
                     searching : false,
@@ -269,37 +172,29 @@
                     "aaData":msg,
                     "aoColumns": [
                         // 按顺序来
-                        {"mData" : "homeworkName"},
-                        {"mData" : "studentName"},
-                        {"mData" : "courseName"},
-                        {"mData" : ""},
+                        {"mData" : "username"},
+                        {"mData" : "name"},
+
+
                         /*  { "mData": 234}, */
-                    ],"columnDefs": [
-                        //{
-                        //    "targets": -2,//编辑
-                        //    "data": null,
-                        //    "defaultContent": "<button id='editrow' class='btn btn-primary' type='button'><i class='fa fa-edit'></i></button>"
-                        //},
-                        {
-                            "targets": -1,//删除
-                            "data": null,
-                            "render": function(data, type, row, meta) {
-                                var button ="<nobr><button style='margin-right: 10px;' id='download' class='btn btn-primary' type='button'>查看</button>" +
-                                    "<button style='margin-right: 10px;' id='upload' class='btn btn-primary' type='button'>打分</button>" +
-                                    "<button style='margin-right: 10px;' id='pass' class='btn btn-primary' type='button'>跳过</button></nobr>";
-                                return button;
-                            },
+                    ]
 
-                        }
-
-                    ] ,
 
                 } );
-
             }
         });
-
     }
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null){
+            return unescape(r[2]);
+        }else{
+            return null;
+        }
+    }
+
 
 </script>
 
@@ -307,3 +202,5 @@
 <!-- /. WRAPPER  -->
 </body>
 </html>
+
+
